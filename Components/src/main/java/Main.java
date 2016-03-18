@@ -9,8 +9,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    public static void main(String [] aStrings)
-    {
+    public static void main(String[] aStrings) {
         launch(aStrings);
     }
 

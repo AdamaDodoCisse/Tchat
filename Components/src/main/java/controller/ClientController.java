@@ -5,6 +5,7 @@ import adama.SocketRequest;
 import entity.Computer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -16,6 +17,7 @@ public class ClientController {
     public static void main(String[] args) throws Exception {
 
         Socket socket = new Socket();
+        Robot robot = new Robot();
         socket.connect(
                 new InetSocketAddress(
                         "127.0.0.1",
@@ -27,25 +29,21 @@ public class ClientController {
 
         client.on(
                 "mouse.move",
-                new SocketRequest() {
-                    @Override
-                    synchronized public void eventRequest(Object position) {
-                        System.out.println(position);
+                position -> {
+                    if (position instanceof Point) {
+                        robot.mouseMove(((Point) position).x, ((Point) position).y);
                     }
+                    System.out.println(position);
                 }
         );
 
         client.on(
                 "message.box",
-                new SocketRequest() {
-                    @Override
-                    synchronized public void eventRequest(Object message) {
+                message ->
                         JOptionPane.showMessageDialog(
                                 null,
                                 message
-                        );
-                    }
-                }
+                        )
         );
 
         client.emit(

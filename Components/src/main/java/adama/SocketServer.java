@@ -13,8 +13,7 @@ public class SocketServer {
     private ArrayList<SocketClient> clients;
     private ArrayList<SocketClientListener> listeners;
 
-    public SocketServer(int port) throws RuntimeException
-    {
+    public SocketServer(int port) throws RuntimeException {
         this.clients = new ArrayList<>();
         this.listeners = new ArrayList<>();
 
@@ -25,24 +24,20 @@ public class SocketServer {
         }
     }
 
-    public void addClientListener(SocketClientListener listener)
-    {
+    public void addClientListener(SocketClientListener listener) {
         this.listeners.add(listener);
     }
 
-    public void notifyAllListener(SocketClient client)
-    {
+    public void notifyAllListener(SocketClient client) {
         for (SocketClientListener listener : this.listeners)
             listener.onConnect(client);
     }
 
-    public ArrayList<SocketClient> getClients()
-    {
+    public ArrayList<SocketClient> getClients() {
         return this.clients;
     }
 
-    public void start()
-    {
+    public void start() {
         while (true) {
             try {
                 SocketClient client = new SocketClient(this.socket.accept());
@@ -50,7 +45,7 @@ public class SocketServer {
                 this.notifyAllListener(client);
                 new Thread(client).start();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
