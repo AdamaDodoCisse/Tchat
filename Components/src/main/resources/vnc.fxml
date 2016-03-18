@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServerController">
+   <children>
+      <Pane prefHeight="399.0" prefWidth="640.0">
+         <children>
+            <Button fx:id="buttonMouveMouse" layoutX="234.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="172.0" text="Active" />
+            <Label layoutX="282.0" layoutY="247.0" text="Mouse control" />
+            <TableView fx:id="computerTable" layoutX="19.0" layoutY="33.0" prefHeight="200.0" prefWidth="603.0">
+              <columns>
+                  <TableColumn fx:id="computerColumnUsername" prefWidth="75.0" text="Username" />
+                  <TableColumn fx:id="computerColumnName" prefWidth="75.0" text="System" />
+                  <TableColumn fx:id="computerColumnVersion" prefWidth="75.0" text="Version" />
+                  <TableColumn fx:id="computerColumnCountry" prefWidth="75.0" text="Country" />
+                  <TableColumn fx:id="computerColumnIP" prefWidth="75.0" text="IP" />
+              </columns>
+            </TableView>
+            <TextArea fx:id="messageText" layoutX="19.0" layoutY="324.0" prefHeight="64.0" prefWidth="603.0" />
+         </children>
+      </Pane>
+   </children>
+</VBox>
