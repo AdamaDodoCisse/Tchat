@@ -29,16 +29,22 @@ public class ServerController implements Initializable {
 
     @FXML
     public TextArea messageText;
+
     @FXML
     public TableColumn<Computer, String> computerColumnCountry;
+
     @FXML
     public TableColumn<Computer, String> computerColumnIP;
+
     @FXML
     private TableView<Computer> computerTable;
+
     @FXML
     private TableColumn<Computer, String> computerColumnName;
+
     @FXML
     private javafx.scene.control.Button buttonMouveMouse;
+
     private SocketServer server;
 
     private boolean mouveMouse;
