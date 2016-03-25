@@ -149,6 +149,7 @@ public class ServerController implements Initializable {
 
                     ServerController.this.server.start();
                 }
+                
         ).start();
     }
 }
