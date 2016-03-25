@@ -116,26 +116,36 @@ public class ServerController implements Initializable {
                     System.out.println("Running server  ......");
                     ServerController.this.server = new SocketServer(9000);
 
-                    ServerController.this.server.addClientListener(client ->
-                            new Thread(() -> {
+                    ServerController.this.server.addClientListener(client -> {
+                        System.out.println("new connection...");
+                        new Thread(() -> {
 
-                                while (true) {
-                                    if (ServerController.this.mouveMouse) {
-                                        client.emit(
-                                                "mouse.move",
-                                                MouseInfo.getPointerInfo().getLocation()
-                                        );
-                                    }
+                            while (true) {
+                                if (ServerController.this.mouveMouse) {
+                                    client.emit(
+                                            "mouse.move",
+                                            MouseInfo.getPointerInfo().getLocation()
+                                    );
                                 }
-                            }).start()
-                    );
+                            }
+                        }).start();
+                    });
 
-                    ServerController.this.server.addClientListener(client ->
-                            client.on(
-                                    "computer.information",
-                                    computer -> computerTable.getItems().add((Computer) computer)
-                            )
-                    );
+                    ServerController.this.server.addClientListener(client -> {
+                        client.on(
+                                "computer.information",
+                                computer -> {
+                                    Computer computer1 = (Computer) computer;
+                                    computerTable.getItems().add(computer1);
+
+                                    client.on("message.box", message ->
+                                            messageText.setText(
+                                                    messageText.getText() + "\n" + computer1.getName() + " : " + message
+                                            )
+                                    );
+                                }
+                        );
+                    });
 
                     ServerController.this.server.start();
                 }

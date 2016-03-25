@@ -20,7 +20,7 @@ public class ClientController {
         Robot robot = new Robot();
         socket.connect(
                 new InetSocketAddress(
-                        "127.0.0.1",
+                        "172.16.16.31",
                         9000
                 )
         );
@@ -39,11 +39,13 @@ public class ClientController {
 
         client.on(
                 "message.box",
-                message ->
-                        JOptionPane.showMessageDialog(
-                                null,
-                                message
-                        )
+                message -> {
+                    String s = JOptionPane.showInputDialog(
+                            null,
+                            message
+                    );
+                    client.emit("message.box", s);
+                }
         );
 
         client.emit(
