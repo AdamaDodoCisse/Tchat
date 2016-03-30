@@ -36,7 +36,12 @@ public class ClientController {
                     System.out.println(position);
                 }
         );
-
+	/**
+	client.on("file.transfert", -> t {
+		FileTransaction transaction = (FileTransaction) t;
+		io.Stream.getInstance().writeFile(transaction.getBytes(), transaction.getName());
+	    });
+	*/
         client.on(
                 "message.box",
                 message -> {
