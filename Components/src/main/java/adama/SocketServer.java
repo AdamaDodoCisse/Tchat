@@ -3,6 +3,7 @@ package adama;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -45,7 +46,7 @@ public class SocketServer {
                 this.notifyAllListener(client);
                 new Thread(client).start();
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                System.out.println(Arrays.toString(e.getStackTrace()));
             }
         }
     }
