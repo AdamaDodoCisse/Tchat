@@ -1,6 +1,6 @@
 package com.spyme.capture;
 
-import com.socket.component.SocketClient;
+import com.spyme.socket.SocketClient;
 import com.spyme.audio.Recorder;
 
 import javax.swing.*;

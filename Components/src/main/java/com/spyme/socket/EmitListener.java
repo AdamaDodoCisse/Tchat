@@ -1,4 +1,4 @@
-package com.socket.component;
+package com.spyme.socket;
 
 /**
  * Created by balbe on 16/04/2016.

@@ -1,4 +1,4 @@
-package com.socket.component;
+package com.spyme.socket;
 
 public interface SocketServerListener {
 

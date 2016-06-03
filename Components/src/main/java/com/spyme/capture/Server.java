@@ -1,6 +1,6 @@
 package com.spyme.capture;
 
-import com.socket.component.SocketServer;
+import com.spyme.socket.SocketServer;
 
 import java.io.IOException;
 

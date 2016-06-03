@@ -1,7 +1,6 @@
-package com.socket.component;
+package com.spyme.socket;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.net.Socket;
