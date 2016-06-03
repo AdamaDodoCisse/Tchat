@@ -7,20 +7,11 @@ import java.io.*;
 
 public class Screen implements Serializable {
 
-    private byte [] bytes;
+    private byte[] bytes;
 
     public Screen(BufferedImage image) throws IOException {
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
-        ImageIO.write(image, "jpg", stream);
-        stream.flush();
-        this.bytes = stream.toByteArray();
-        stream.close();
-    }
-
-    public Screen (byte [] bytes) {
-        this.bytes = bytes;
+        this.setBytes(this.getBytes(image));
     }
 
     public byte[] getBytes() {
@@ -28,7 +19,24 @@ public class Screen implements Serializable {
     }
 
     public Image getImage() throws IOException {
-        InputStream in = new ByteArrayInputStream(this.bytes);
+        InputStream in = new ByteArrayInputStream(this.getBytes());
         return ImageIO.read(in);
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
+    public byte[] getBytes(BufferedImage image) throws IOException {
+
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        ImageIO.write(image, "jpg", stream);
+        stream.flush();
+        byte[] bytes = stream.toByteArray();
+        stream.close();
+
+        return bytes;
     }
 }

@@ -1,31 +1,32 @@
+import com.spyme.audio.Recorder;
 
-import com.socket.component.SocketClient;
-import com.socket.component.SocketServer;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.ByteArrayInputStream;
 
 public class Main {
-    static int cpt = 0;
 
-    public static void  main(String [] args) throws Exception{
-        if (args.length > 0) {
+    public static void main(String[] args) throws Exception {
+        Recorder recorder = new Recorder();
 
-            if (args[0].equalsIgnoreCase("-c"))
-            {
-                SocketClient client = new SocketClient("127.0.0.1", 8000);
+        recorder.setDurationPerSecond(1);
+        recorder.addRecorderListener(bytes -> {
+            ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
 
-                client.on("new.client", o -> {
-                    cpt++;
-                    System.out.println("client " + cpt);
-                });
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(stream);
 
-                client.run();
-            } else {
+                AudioSystem.getClip().close();
 
-                SocketServer s = new SocketServer(8000);
-                s.addListener((server1, client) ->
-                        server1.emitBroadcast("new.client", null, client)
-                );
-                s.launch();
-            }
-        }
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } catch (Exception e) {}
+        });
+
+        Thread thread = new Thread(recorder);
+
+        thread.start();
     }
 }

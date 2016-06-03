@@ -13,9 +13,8 @@ public class Server {
         SocketServer server = new SocketServer(PORT);
 
         server.addListener((s, client) -> {
-                    client.on("screen", object -> {
-                        s.emitBroadcast("screen", object, client);
-                    });
+                    client.on("screen", object -> s.emitBroadcast("screen", object, client));
+                    client.on("voice", object -> s.emitBroadcast("voice", object, client));
                 }
         );
 

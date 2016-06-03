@@ -1,6 +1,7 @@
 package com.spyme.capture;
 
 import com.socket.component.SocketClient;
+import com.spyme.audio.Recorder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,6 +50,7 @@ public class Client extends JPanel {
     public static void main(String[] aStrings) throws Exception {
 
         SocketClient client = new SocketClient("127.0.0.1", Server.PORT);
+        Recorder recorder = new Recorder();
 
         JFrame frame = new JFrame();
         Client panelClient = new Client();
@@ -66,8 +68,22 @@ public class Client extends JPanel {
             } catch (Exception e) {
             }
         });
+
+        recorder.setDurationPerSecond(1);
+
+        recorder.addRecorderListener(bytes -> client.emit("voice", new Voice(bytes)));
+
         client.emit("screen", getScreen());
+
+        client.on("voice", object -> {
+            try {
+                ((Voice) object).run();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
         client.run();
+      //  recorder.run();
     }
 
     public static Screen getScreen() throws AWTException, IOException {
